@@ -10,17 +10,28 @@ function onReady() {
   // call getCurrentToDoList to get the task list on initial page load
   getCurrentToDoList();
 
-  // Event Listener and register an event handler for high-priority checkbox
-  $('#checkbox-high-priority').on('click', updateToHighPriority);
-
-  // Event Listener and register an event handler for adding a task button
-  $('#add-task-button').on('click', addTask);
+// ??? Attempted to add a checkbox to check if the task is high priority
+  // ??? Thought was to create categories for the user to
+  // ??? sort and visually prioritize the tasks
+    // ??? After research and experimentation, I couldn't figure it out 😅😵‍💫
+//   // Event Listener and register an event handler for high-priority checkbox
+//   $('input[name=high-priority]').change(setToHighPriority);
+// //   $('input[name=high-priority]').change(function () {
+// //     if ($(this).is(':checked')) {
+// //       console.log('Checkbox is checked.');
+// //     } else {
+// //       console.log('Checkbox is not checked.');
+// //     }
+// //   });
 
   // Event Listener and register an event handler for completion status button
-  $('#complete-task-button').on('click', completeTask);
+  $('#view-to-do-list').on('click', '#complete-task-button', completeTask);
 
   // Event listener and register an event handler for deleting a task button
-  $('#delete-task-button').on('click', deleteTask);
+  $('#view-to-do-list').on('click', '.delete-task-button', deleteTask);
+
+    // Event Listener and register an event handler for adding a task button
+    $('#add-task-button').on('click', addTask);
 }
 
 // TODO: $.ajax Functions
@@ -44,11 +55,11 @@ function getCurrentToDoList() {
 // ** function addTask adds a task to the task list
 // and refreshes the task list to include the new task
 // * POST METHOD creates a new resource
-function addTask() {
+function addTask(event) {
+  event.preventDefault();
   console.log('in addTask');
-  // Collect user input and put values in an object
+// Collect user input and put values in an object
   let newTask = {
-    task_is_high_priority: $('#checkbox-high-priority').val(),
     task: $('#task-in').val(),
   };
 
@@ -59,7 +70,7 @@ function addTask() {
   })
     .then(function (response) {
       console.log('Response from server: ', response);
-      $('#checkbox-high-priority').val(''), $('#task-in').val('');
+      $('#task-in').val('');
       getCurrentToDoList();
     })
     .catch(function (error) {
@@ -69,53 +80,61 @@ function addTask() {
 } // end addTask
 
 
-// ** function updateToHighPriority changes the task to high priority
-    // * PUT METHOD updates an existing resource
-  function updateToHighPriority() {
-    console.log('in updateToHighPriority');
-    console.log('The check-marked task is: ', $(this));
-    const taskId = $(this).parent().parent().data("id");
-    console.log('taskId of check-marked task is: ', taskId);
-  
-    $.ajax({
-      method: 'PUT',
-      url: `/todolist/${taskId}`,
-    })
-      .then((response) => {
-        console.log('Task is checked as high priority! Response: ', response);
-        getCurrentToDoList();
-      })
-      .catch((error) => {
-        console.log('Error in check-marking high priority', error);
-        alert('Task has NOT been updated to high priority.');
-        res.sendStatus(500);
-      });
-  } // end updateToHighPriority
+// ??? Attempted to add a checkbox to check if the task is high priority
+  // ??? Thought was to create categories for the user to
+  // ??? sort and visually prioritize the tasks
+    // ??? After research and experimentation, I couldn't figure it out 😅😵‍💫
+// // ** function updateToHighPriority changes the task to high priority
+// // * PUT METHOD updates an existing resource
+// function setToHighPriority(event) {
+//   event.preventDefault();
+//   console.log('in setToHighPriority');
+//   console.log('The check-marked task is: ', $(this));
+//   let idToHighPriority = $(this).parent().parent().data('id');
+//   console.log('taskId of check-marked task is: ', idToHighPriority);
 
+//   $.ajax({
+//       method: 'PUT',
+//       url: `/todolist/priority/${idToHighPriority}`,
+//       data: { task_is_high_priority: $(this).prop('checked') }
+//   })
+//       .then((response) => {
+//         render(response);
+//           console.log('Task is checked as high priority! Response: ', response);
+//           getCurrentToDoList();
+//       })
+//       .catch((error) => {
+//           console.log('Error in check-marking high priority', error);
+//           alert('Task has NOT been updated to high priority.');
+//           res.sendStatus(500);
+//       });
+// } // end setToHighPriority
 
 
 // ** function completeTask updates the task to completed
 // * PUT METHOD updates an existing resource
-  function completeTask() {
-    console.log('in completeTask');
-    console.log('The completed task is: ', $(this));
-    const taskId = $(this).parent().parent().data("id");
-    console.log('taskId of completed task is: ', taskId);
-  
-    $.ajax({
+function completeTask() {
+  console.log('in completeTask');
+  let taskId = $(this).parent().parent().data('id');
+  console.log('taskId to complete is: ', taskId);
+
+  $.ajax({
       method: 'PUT',
-      url: `/todolist/${taskId}`,
-    })
+      url: `/todolist/complete/${taskId}`,
+      data: { task_is_complete: false }
+  })
       .then((response) => {
-        console.log('Task has been completed! Response: ', response);
-        getCurrentToDoList();
+          console.log('Task is completed! Response: ', response);
+          // Refresh the task list after marking as complete
+          render(response);
+          getCurrentToDoList();
       })
       .catch((error) => {
-        console.log('Error in changing task to completed', error);
-        alert('Task has NOT been changed to completed.');
-        res.sendStatus(500);
+          console.log('Error in completing task', error);
+          alert('Task has NOT been completed.');
+          res.sendStatus(500);
       });
-  } // end completeTask
+} // end completeTask
 
 
 // ** function deleteTask deletes a task with a given id from the task list
@@ -150,26 +169,104 @@ function render(tasks) {
   $('#view-to-do-list').empty();
   // loop through the tasks
   for (let i = 0; i < tasks.length; i++) {
-    //   if (`${tasks[i].ready_to_transfer}` == "N") {
+    let isComplete = tasks[i].task_is_complete;
+    let showStatus = '';
+
+    if (isComplete) {
+      showStatus = 'Completed';
+    } else {
+      showStatus = 'Task Incomplete';
+    }
+
     $('#view-to-do-list').append(`
       <tr data-id=${tasks[i].id}>
-      <td>${tasks[i].task_is_high_priority}</td>
-      <td>${tasks[i].task_is_complete}</td>
-      <td>${tasks[i].task}</td>
-      <td><button id='delete-task-button'>Delete</button></td>
-  </tr>
-      `);
-    //       } else {
-    //         $("#viewKoalas").append(`
-    //     <tr data-id=${koalas[i].id}>
-    //     <td>${koalas[i].name}</td>
-    //     <td>${koalas[i].age}</td>
-    //     <td>${koalas[i].gender}</td>
-    //     <td>${koalas[i].ready_to_transfer}</td>
-    //     <td>${koalas[i].notes}</td>
-    //     <td>Ready to Transfer! :)</td>
-    //     <td><button class='delete-button'>Delete</button></td>
-    //   </tr>
-    //     `);
+        <td><button class='complete-task-button'>${showStatus}</button></td>
+        <td>${tasks[i].task}</td>
+        <td><button class='delete-task-button'>Delete</button></td>
+      </tr>
+    `);
   }
-}
+} // end render
+
+
+
+
+
+
+// ??? Attempted to add a checkbox to check if the task is high priority
+  // ??? Thought was to create categories for the user to
+  // ??? sort and visually prioritize the tasks
+    // ??? After research and experimentation, I couldn't figure it out 😅😵‍💫
+// // ** function render takes the raw data and converts it into something visible to users
+// // for this web-app it involves HTML and DOM manipulation
+// function render(tasks) {
+//   $('#view-to-do-list').empty();
+//   // loop through the tasks
+//   for (let i = 0; i < tasks.length; i++) {
+//     let isHighPriority = tasks[i].task_is_high_priority;
+//     let isComplete = tasks[i].task_is_complete;
+//     let showStatus = '';
+//     if (isHighPriority && !isComplete) {
+//         showStatus = 'Incomplete';
+//       $('#view-to-do-list').append(`
+//         <tr data-id=${tasks[i].id}>
+//         <td>${isHighPriority}</td>
+//         <td><button id='complete-task-button'>${showStatus}</button></td>
+//         <td>${tasks[i].task}</td>
+//         <td><button class='delete-task-button'>Delete</button></td>
+//         </tr>
+//         `);
+//     } else if (isHighPriority && isComplete) {
+//         showStatus = 'Complete';
+//       $('#view-to-do-list').append(`
+//         <tr data-id=${tasks[i].id}>
+//             <td></td>
+//             <td><button id='complete-task-button'>${showStatus}</button></td>
+//             <td>${tasks[i].task}</td>
+//             <td><button class='delete-task-button'>Delete</button></td>
+//         </tr>
+//         `);
+//     } else if (!isHighPriority && !isComplete) {
+//         showStatus = 'Incomplete';
+//       $('#view-to-do-list').append(`
+//         <tr data-id=${tasks[i].id}>
+//             <td></td>
+//             <td><button id='complete-task-button'>${showStatus}</button></td>
+//             <td>${tasks[i].task}</td>
+//             <td><button class='delete-task-button'>Delete</button></td>
+//         </tr>
+//         `);
+//     } else if (!isHighPriority && isComplete) {
+//         showStatus = 'Complete';
+//       $('#view-to-do-list').append(`
+//         <tr data-id=${tasks[i].id}>
+//             <td></td>
+//             <td><button id='complete-task-button'>${showStatus}</button></td>
+//             <td>${tasks[i].task}</td>
+//             <td><button class='delete-task-button'>Delete</button></td>
+//         </tr>
+//         `);
+//     } else if (isHighPriority) {
+//         showStatus = 'Incomplete';
+//       $('#view-to-do-list').append(`
+//         <tr data-id=${tasks[i].id}>
+//         <td>${isHighPriority}</td>
+//         <td><button id='complete-task-button'>${showStatus}</button></td>
+//         <td>${tasks[i].task}</td>
+//         <td><button class='delete-task-button'>Delete</button></td>
+//         </tr>
+//         `);
+//     } else {
+//         showStatus = 'Incomplete';
+//         $('#view-to-do-list').append(`
+//           <tr data-id=${tasks[i].id}>
+//           <td>${isHighPriority}</td>
+//           <td><button id='complete-task-button'>${showStatus}</button></td>
+//           <td>${tasks[i].task}</td>
+//           <td><button class='delete-task-button'>Delete</button></td>
+//           </tr>
+//           `);
+//     }
+
+//   } // end for loop
+// } // end render
