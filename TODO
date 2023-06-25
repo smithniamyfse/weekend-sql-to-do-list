@@ -39,7 +39,7 @@ VALUES - mock data
 ## pool.js
 - This connection module is a way to centralize the communication between server and database.  
     - [x] Create constant and use the built-in Node.js function ‘require’ to include the  module library pg or node-postgres.
-    - [x] Create constant for pg to connect with the ‘weekend-to-do-app’ database. This is pool module will be the communication “telephone line” to “call” and collect data from the database. 
+    - [x] Create constant for pg to connect with the ‘weekend_to_do_app’ database. This is pool module will be the communication “telephone line” to “call” and collect data from the database. 
     - [x] Export the pool as an object to be used by the router.
 
 
@@ -51,7 +51,7 @@ VALUES - mock data
 - DELETE - Deleted from the database. 
 
     - [x] Create constants to bring in modules: pool, express, and router. 
-    - [ ] GET all tasks from the weekend-to-do-app database
+    - [ ] GET all tasks from the weekend_to_do_app database
     - [ ] GET a specific task using the router parameter “id”
     - [ ] POST or add a new task
         - [ ] Use parameterization to prevent SQL injection or hacking
