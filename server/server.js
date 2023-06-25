@@ -10,6 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Serve back static files (html, css, etc.) by default
 app.use(express.static('server/public'));
 
+
 // API ROUTES
 //  The server defines routes for handling requests 
     // related to users using the todolistRouter middleware.

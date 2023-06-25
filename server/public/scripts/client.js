@@ -10,10 +10,11 @@ function onReady() {
   // call getCurrentToDoList to get the task list on initial page load
   getCurrentToDoList();
 
-// ??? Attempted to add a checkbox to check if the task is high priority
+  // ??? Attempted to add a checkbox to check if the task is high priority
   // ??? Thought was to create categories for the user to
   // ??? sort and visually prioritize the tasks
-    // ??? After research and experimentation, I couldn't figure it out 😅😵‍💫
+  // ??? After research and experimentation, I couldn't figure it out 😅😵‍💫
+  /*
 //   // Event Listener and register an event handler for high-priority checkbox
 //   $('input[name=high-priority]').change(setToHighPriority);
 // //   $('input[name=high-priority]').change(function () {
@@ -23,18 +24,18 @@ function onReady() {
 // //       console.log('Checkbox is not checked.');
 // //     }
 // //   });
+*/
 
   // Event Listener and register an event handler for completion status button
-  $('#view-to-do-list').on('click', '#complete-task-button', completeTask);
+  $('#view-to-do-list').on('click', '.complete-task-button', completeTask);
 
   // Event listener and register an event handler for deleting a task button
   $('#view-to-do-list').on('click', '.delete-task-button', deleteTask);
 
-    // Event Listener and register an event handler for adding a task button
-    $('#add-task-button').on('click', addTask);
-}
+  // Event Listener and register an event handler for adding a task button
+  $('#add-task-button').on('click', addTask);
 
-// TODO: $.ajax Functions
+  }
 
 // ** function getCurrentToDoList returns the list of tasks at the
 // beginning of page rendering and refreshes the task list to reflect any changes
@@ -58,7 +59,7 @@ function getCurrentToDoList() {
 function addTask(event) {
   event.preventDefault();
   console.log('in addTask');
-// Collect user input and put values in an object
+  // Collect user input and put values in an object
   let newTask = {
     task: $('#task-in').val(),
   };
@@ -79,11 +80,11 @@ function addTask(event) {
     });
 } // end addTask
 
-
 // ??? Attempted to add a checkbox to check if the task is high priority
-  // ??? Thought was to create categories for the user to
-  // ??? sort and visually prioritize the tasks
-    // ??? After research and experimentation, I couldn't figure it out 😅😵‍💫
+// ??? Thought was to create categories for the user to
+// ??? sort and visually prioritize the tasks
+// ??? After research and experimentation, I couldn't figure it out 😅😵‍💫
+/*
 // // ** function updateToHighPriority changes the task to high priority
 // // * PUT METHOD updates an existing resource
 // function setToHighPriority(event) {
@@ -109,7 +110,7 @@ function addTask(event) {
 //           res.sendStatus(500);
 //       });
 // } // end setToHighPriority
-
+*/
 
 // ** function completeTask updates the task to completed
 // * PUT METHOD updates an existing resource
@@ -119,23 +120,22 @@ function completeTask() {
   console.log('taskId to complete is: ', taskId);
 
   $.ajax({
-      method: 'PUT',
-      url: `/todolist/complete/${taskId}`,
-      data: { task_is_complete: false }
+    method: 'PUT',
+    url: `/todolist/${taskId}`,
+    data: { task_is_complete: false },
   })
-      .then((response) => {
-          console.log('Task is completed! Response: ', response);
-          // Refresh the task list after marking as complete
-          render(response);
-          getCurrentToDoList();
-      })
-      .catch((error) => {
-          console.log('Error in completing task', error);
-          alert('Task has NOT been completed.');
-          res.sendStatus(500);
-      });
+    .then((response) => {
+      console.log('Task is completed! Response: ', response);
+      // Refresh the task list after marking as complete
+      render(response);
+      getCurrentToDoList();
+    })
+    .catch((error) => {
+      console.log('Error in completing task', error);
+      alert('Task has NOT been completed.');
+      res.sendStatus(500);
+    });
 } // end completeTask
-
 
 // ** function deleteTask deletes a task with a given id from the task list
 // and refreshes the task list to show the task has been removed
@@ -171,13 +171,11 @@ function render(tasks) {
   for (let i = 0; i < tasks.length; i++) {
     let isComplete = tasks[i].task_is_complete;
     let showStatus = '';
-
     if (isComplete) {
-      showStatus = 'Completed';
+      showStatus = 'Complete';
     } else {
-      showStatus = 'Task Incomplete';
+      showStatus = 'Incomplete';
     }
-
     $('#view-to-do-list').append(`
       <tr data-id=${tasks[i].id}>
         <td><button class='complete-task-button'>${showStatus}</button></td>
@@ -192,11 +190,11 @@ function render(tasks) {
 
 
 
-
 // ??? Attempted to add a checkbox to check if the task is high priority
-  // ??? Thought was to create categories for the user to
-  // ??? sort and visually prioritize the tasks
-    // ??? After research and experimentation, I couldn't figure it out 😅😵‍💫
+// ??? Thought was to create categories for the user to
+// ??? sort and visually prioritize the tasks
+// ??? After research and experimentation, I couldn't figure it out 😅😵‍💫
+/*
 // // ** function render takes the raw data and converts it into something visible to users
 // // for this web-app it involves HTML and DOM manipulation
 // function render(tasks) {
@@ -270,3 +268,4 @@ function render(tasks) {
 
 //   } // end for loop
 // } // end render
+*/
