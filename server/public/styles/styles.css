@@ -1,0 +1,10 @@
+@import '/node_modules/bootstrap/scss/';
+
+input[type=text] {
+    width: 90%;
+}
+
+.show-complete-button{
+    background-color: greenyellow;
+}
+
