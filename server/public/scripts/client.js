@@ -2,6 +2,7 @@ console.log('client.js initialized');
 // Use jQuery to manipulate the DOM
 $(document).ready(onReady);
 
+
 // function onReady is a callback function
 // it is a function that is handed to
 // some other function to be executed later on.
@@ -171,23 +172,29 @@ function render(tasks) {
   for (let i = 0; i < tasks.length; i++) {
     let isComplete = tasks[i].task_is_complete;
     let showStatus = '';
-    if (isComplete) {
-      showStatus = 'Complete';
-    } else {
+    let buttonComplete = $("#myBtn").addClass('myclass');
+    
+    if (!isComplete) {
       showStatus = 'Incomplete';
-    }
     $('#view-to-do-list').append(`
       <tr data-id=${tasks[i].id}>
-        <td><button class='complete-task-button'>${showStatus}</button></td>
+      <td><button type="button" id="completed-task-button" class="complete-task-button">${showStatus}</button></td>
         <td>${tasks[i].task}</td>
-        <td><button class='delete-task-button'>Delete</button></td>
+        <td><button class="delete-task-button">Delete</button></td>
+      </tr>
+    `);
+    } else if (isComplete) {
+      showStatus = 'Completed';
+      $('#view-to-do-list').append(`
+      <tr data-id=${tasks[i].id}>
+        <td><button type="button" id="completed-task-button" class="show-complete-button">${showStatus}</button></td>
+        <td>${tasks[i].task}</td>
+        <td><button class="delete-task-button">Delete</button></td>
       </tr>
     `);
   }
+} // end for loop
 } // end render
-
-
-
 
 
 // ??? Attempted to add a checkbox to check if the task is high priority
@@ -267,5 +274,5 @@ function render(tasks) {
 //     }
 
 //   } // end for loop
-// } // end render
+// } // end render 
 */

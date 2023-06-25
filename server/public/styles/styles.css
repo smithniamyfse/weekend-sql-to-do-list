@@ -1,19 +1,10 @@
 @import '/node_modules/bootstrap/scss/';
 
-/* CSS for Complete Task Button */
-.complete-task-button {
-    padding: 5px 10px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .complete-task-button.completed {
-    background-color: #5cb85c; /* Green color for completed tasks */
-    color: #fff;
-  }
-  
-  .complete-task-button:hover {
-    background-color: #e7e7e7; /* Light gray background on hover */
-  }
+input[type=text] {
+    width: 90%;
+}
+
+.show-complete-button{
+    background-color: greenyellow;
+}
+
