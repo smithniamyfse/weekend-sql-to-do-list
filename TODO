@@ -1,56 +1,156 @@
+### DATABASE - SQL, POSTICO
+## Create a Database
+# Create a new database through Postico. 
+- [x] Name the database ’weekend_to_do_app’. 
+- [x] You will need to use this name in your database connection configuration on your server.
 
-## Weekend Challenge: SQL To-Do List
+## Database Structure
+- [x] Create a ‘database.sql’ text file in your repo.
+    - This is so we can re-create your database while testing your app.
 
-## The To-Do App
+- [x] Include all of your ‘CREATE TABLE’ queries. 
+    - “id”
+    - “task_is_high_priority” - BOOLEAN SET DEFAULT FALSE;
+    - “task_is_complete” - BOOLEAN SET DEFAULT FALSE;
+    - “task”
 
-You are going to create a 'TO DO' application. Chances are good that at some point in your career you will tackle this again while learning another language.
+- [x] INSERT INTO “todolist”
+(“task_is_high_priority”, “task_is_complete”, “task”)
+VALUES - mock data
+(TRUE, FALSE, ‘Complete weekend to-do list web application.’),
+(TRUE, TRUE, ‘Take a break outside and go for a walk.’),
+(FALSE, FALSE, ‘Watch only TWO episodes of true-crime to avoid spiraling into questioning humanity's goodness.’),
+(FALSE, TRUE, ‘Reward my wonderful cats with treats as compensation for spending less time brushing them lately.’);
 
-**Here are the specific components for the challenge:**
-
-* Create a front end experience that allows a user to create a Task.
-* When the Task is created, it should be stored inside of a database (SQL)
-* Whenever a Task is created the front end should refresh to show all tasks that need to be completed.
-* Each Task should have an option to 'Complete' or 'Delete'.
-* When a Task is complete, its visual representation should change on the front end. For example, the background of the task container could change from gray to green. The complete option should be  'checked off'. Each of these are accomplished in CSS, but will need to hook into logic to know whether or not the task is complete.
-* Whether or not a Task is complete should also be stored in the database.
-* Deleting a Task should remove it both from the front end as well as the Database.
-
-### Styling
-
-Use CSS styling to move the aesthetic of the page beyond the vanilla HTML look:
-  - background color of the page
-  - font family and size
-  - text color & or background color of tasks *to show whether or not they have been completed*
+### SERVER-SIDE
+## server.js
+- [x] Create constant and use the built-in Node.js function ‘require’ to include the external module Express
+- [x] Create constant and assign the module web framework Express as the value
+- [x] Create constant and use the built-in Node.js function ‘require’ to include the Express middleware body-parser. 
+- [x] Create a constant for port that assigns 5000 local host.
+- [x] Create constant for the router and use the built-in Node.js function ‘require’ to include the external router module todolistRouter. 
+ - [x] Setup body parser to translate the request body (data) into JSON (JavaScript Object Notation).
+- [x] Serve the “static assets” (html, css, client-side js), from the root directory of server / public folders
+- [x] Setup todolist router module that responds to requests from the /todolist route.   
+    - Initially, all traffic goes into the server.js file and flows to the /todolist route and todolistRouter.
+ - [x] Start the server ignition of listening for requests on port 5000.
 
 
-### Create a Database
+## pool.js
+- This connection module is a way to centralize the communication between server and database.  
+    - [x] Create constant and use the built-in Node.js function ‘require’ to include the  module library pg or node-postgres.
+    - [x] Create constant for pg to connect with the ‘weekend-to-do-app’ database. This is pool module will be the communication “telephone line” to “call” and collect data from the database. 
+    - [x] Export the pool as an object to be used by the router.
 
-Be sure to create a new database through Postico. Use the name `weekend_to_do_app`. You will need to use this name in your database connection configuration on your server.
 
-### Database Structure
+## todolist-router.js
+- A router module that allows SQL queries (data) to be:
+- GET - Retrieved from the database
+- POST - Added to the database
+- PUT - Updated in the database
+- DELETE - Deleted from the database. 
 
-Please include a `database.sql` text file in your repo that includes all of your `CREATE TABLE` queries. This is so we can re-create your database while testing your app.
+    - [x] Create constants to bring in modules: pool, express, and router. 
+    - [ ] GET all tasks from the weekend-to-do-app database
+    - [ ] GET a specific task using the router parameter “id”
+    - [ ] POST or add a new task
+        - [ ] Use parameterization to prevent SQL injection or hacking
+    - [ ] PUT or update if a task is high priority
+    - [ ] PUT or update if a task is complete
+    - [ ] DELETE permanently a task
+    - [ ] Export the code in the router file as an object.
 
-## Stretch Goals
 
-For each of your stretch goals, you will be practicing git branching. Please refer to the branching notes for a reminder on commands. Each branch will be merged into main using `--no-ff`. This will allow us to see that you branched your feature when you turn in your code.
 
-- `feature-styling-bootstrap` 
+### CLIENT-SIDE
+## client.js
+# client.js - Initiate jQuery and Add Event Listeners/Handlers
+- [ ] Make sure jquery.js is in the /scripts folder and sourced correctly in index.html
+- Use jQuery to manipulate the DOM: 
+    - [ ] $(document): jQuery, select the DOM
+        .ready(onReady): When constructing the DOM is finished, execute the function onReady
+- [ ] Create the onReady function
+    - [ ] Call the getCurrentToDoList function
+    - [ ] Add event listener and register an event handler for the high priority
+        - [ ] $(‘input[type=checkbox]’).on(‘click’, updateToHighPriority)
+            - [ ] This will call the updateToHighPriority function and implement the SweetAlert module and its swal function OR  BOOTSTRAP MODAL???
+    - [ ] Add event listener and register an event handler for the add task/submit button 
+        - [ ]  This will call the addTask function
+    - [ ] Add event listener and register an event handler for the delete button
+        - [ ] This will call the deleteTask function
 
-    - [ ]  Add Bootstrap to the front end and style it up!
-      -  Buttons -- make the creation buttons and completion buttons green and the delete red.
-      -  Inputs -- make your text inputs styled in the bootstrap way
-      -  Responsive -- make your app responsive to different screen sizes -- check out the [Layout](https://getbootstrap.com/docs/4.1/layout/overview/) section
 
-- `feature-confirm-delete`
+# client.js - $.ajax Functions
+- [ ] function getCurrentToDoList 
+- [ ] function updateToHighPriority
+- [ ] function addTask
+- [ ] function deleteTask
 
-    - [ ]  In whatever fashion you would like, create an 'are you sure: yes / no' option when deleting a task.
-        - Some styled options are [Bootstrap Modal](https://getbootstrap.com/docs/4.0/components/modal/) or [Sweet Alerts](https://sweetalert.js.org/guides/): Use the CDN option.
 
-- `feature-ordering-task-query` 
+# client.js - $.ajax render Function
+- [ ] Empty the view-to-do-list table element
+- [ ] Use for loop to loop through the to-do list
+    - [ ] Setup if, else if, else conditional statements for the following:
+                “task_is_high_priority”	“task_is_complete”
+                TRUE	                     FALSE
+                TRUE	                     TRUE
+                FALSE	                     FALSE
+                FALSE	                     TRUE
 
-    - [ ]  Research [Query Params](https://expressjs.com/en/api.html#req.query) to have the request reverse the order of the returned todos. 
-    
-- `feature-time-completed` 
 
-    - [ ]  Add the ability to record when a task was completed. Show the completed date on the frontend in a pretty format.
+
+### CLIENT VIEW / DOM / INDEX.HTML
+## Create an index.html
+- [ ] Create an index.html
+- [ ] Index Title: To-Do List
+
+- [ ] Source in
+- vendors/jquery
+- scripts/client.js
+- styles/style.css
+- bootstrap???
+
+# Body
+- [ ] Add entire background image or color.
+?? Which will work best? Breaking bg into sections or entire background. 
+
+# Header
+- [ ] Add a div with h1 To-Do List
+- [ ] Consider using Google Fonts to match nature theme
+
+# Organize index.html by sections
+
+# Section 1 : <section id=”form-container”>
+top part of image for bg ?? tree, branch, sky, etc. 
+<form>
+Display divs side-by-side
+div id=”add-task-container”
+div bg of maple seed pod / helicopter - stretches across the three divs
+div id=”high-priority”
+input type checkbox
+Modal??
+?? DO I NEED VALUE?? <input type="checkbox" id="high-priority" name="vehicle1" value="Bike">
+Confirm high priority - Yes or No
+Enter due date
+add info button
+div id=”input-task” 
+input type="text"
+div id=”add-task-button-container”
+input type="submit" value=”Add Task”
+BOOTSTRAP - a way to on.click? submit trigger an animation of the seed-pod falling down
+</form>
+</section>
+
+# Section 2 : <section id=”to-do-list-container”>
+?? bottom part of image for bg ?? soil, worms, dinosaurs, RAT TUNNEL
+<table> - use a grid  (example with accessibility) instead with accessibility (practices guide)?  
+Table header <thead> Table row <tr> 
+Table headings <th>’s : 
+Status - appending look :  at for high-priority - red seed with due-date - append due date from alert window??, default-priority - yellow seed with incomplete, and nullified-priority-complete - green seed with complete and on.click??, trigger an animation of green leaf seedling that stays on page with default-priority yellow tasks and red leaf seedling with high-priority.  
+Task -  appending look at : <td> BOOTSTRAP CONTEXTUAL CLASSES for high-priority (red), default-priority (yellow), and nullified-priority-complete </td>
+Remove - appending look at :  ANIMATE BUTTON HOVER for rat paw - delete button would also target the correct seedling and remove from page</th>’s  
+</tr> 
+</thead>
+Table body <tbody id=”view-to-do-list”> <-- task list will appear here --> </tbody>
+</table>
+</section>
