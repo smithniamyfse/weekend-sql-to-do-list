@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>To-Do List</title>
-    <script src="vendors/jquery.js" charset="utf-8"></script>
-    <script src="scripts/client.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="./styles/styles.css">
-  </head>
-  <body>
-    <header>
-      <h1>To-Do List</h1>
-    </header>
-    <section id="form-container">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To-Do List</title>
+  <script src="vendors/jquery.js" charset="utf-8"></script>
+  <script src="scripts/client.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="./styles/styles.css">
+</head>
+
+<body>
+  <div class="to-do-add">
+    <div id="top-bg-container">
+      <header>
+        <h1>To-Do List</h1>
+      </header>
       <form>
-        <div id="add-task-container">
-            <h3>Add a Task</h3>
-          <!-- <div id="high-priority-container">
+        <h3>Add a Task</h3>
+        <!-- <div id="high-priority-container">
             <input
               type="checkbox"
               id="checkbox-high-priority"
@@ -24,39 +26,32 @@
               value=""
             />
           </div> -->
-          <div id="input-task">
-            <input
-              type="text"
-              id="task-in"
-              value=""
-              placeholder="What do you need to do?"
-            />
-          </div>
-          <div id="add-task-button-container">
-            <button type="button" id="add-task-button">Add Task</button>
-          </div>
+        <div id="input-task">
+          <input type="text" id="task-in" value="" placeholder="What do you need to do?" />
         </div>
+        <button type="button" id="add-task-button">Add Task</button>
       </form>
-    </section>
-
-    <section id="to-do-list-container">
+    </div>
+  </div>
+  <div class="bottom-bg-container">
+    <div id="to-do-list-container">
       <h3>Lists of Tasks</h2>
-      <table>
-        <thead>
-          <tr>
-            <!-- <th>High Priority</th> -->
-            <th>Completion Status</th>
-            <th>Task</th>
-            <th>Remove</th>
-          </tr>
-        </thead>
-        <tbody id="view-to-do-list"></tbody>
-        <!-- The list of tasks will appear here -->
-      </table>
-    </section>
-
-    <!-- Modal Window for Confirming Deletion -->
-    <!-- <div id="deleteModal" class="modal" tabindex="-1">
+        <table>
+          <thead>
+            <tr>
+              <!-- <th>High Priority</th> -->
+              <th>Completion Status</th>
+              <th>Task</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody id="view-to-do-list"></tbody>
+          <!-- The list of tasks will appear here -->
+        </table>
+    </div>
+  </div>
+  <!-- Modal Window for Confirming Deletion -->
+  <!-- <div id="deleteModal" class="modal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -73,5 +68,6 @@
         </div>
       </div>
     </div> -->
-  </body>
+</body>
+
 </html>

@@ -1,0 +1,41 @@
+body {
+    background-image: url('https://lh3.googleusercontent.com/drive-viewer/AFGJ81q0RTYLrd1vkvgcnUiO6O_grPMFD376IWJ1TvEmY0PVGICrkCRFs-t_tVqldQ0VGUiWHEGWx0YhtvIXHm6WGzf6ItL0=s1600');
+}
+
+.to-do-add {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    background-image: url('https://lh3.googleusercontent.com/drive-viewer/AFGJ81qGN548nn51ybVxIhg5BbgWNnM24Yi8aVKJ-60APck_mxKb-GZdtEaAz1uG5Dt2wJokE4Y4Wrr1iNfzIO9dMtQ9Q85a=s1600');
+    background-size: 100% 100%;
+    background-position: center;
+    /* width: calc(0.664 * 100vh); */
+    /* max-width: 100%; */
+    height: calc(0.664 * 100vw);
+    /* height: 100%;  */
+
+}
+
+.bottom-bg-container {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    background-image: url('https://lh3.googleusercontent.com/drive-viewer/AFGJ81qkyWAGU2mMVBC9wQY9H2Hd17yoeUZ2gYyYBYCD9h_9a-MoHW283iEElk_T_Nwb4-cslzPBr2ZEysbDjb2fKP3wSz2G9w=s1600');
+    background-size: 100% 100%;
+    background-position: center;
+    /* width: calc(0.664 * 100vh); */
+    /* max-width: 100%; */
+    height: calc(0.664 * 100vw);
+    /* height: 100%; */
+
+}
+
+
+input[type=text] {
+    width: 90%;
+}
+
+.show-complete-button{
+    background-color: greenyellow;
+}
+
