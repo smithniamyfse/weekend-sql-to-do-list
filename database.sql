@@ -1,3 +1,5 @@
+-- database name is weekend-to-do-ap
+
 CREATE TABLE "todolist" (
     "id" SERIAL PRIMARY KEY,
     "task_is_complete" BOOLEAN DEFAULT FALSE,

@@ -18,8 +18,6 @@ router.get('/', (req, res) => {
   });
   
 
-
-
 // POST a new task to the 'weekend_to_do_app' database
 router.post('/', (req, res) => {
     // Create a constant that is an object that stores information in key-value pairs,

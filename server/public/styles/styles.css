@@ -1,8 +1,55 @@
+body {
+    font-family: 'Neucha', cursive;
+}
+
+
+h1, h2, th {
+    font-family: 'Ysabeau SC', sans-serif;
+}
+
+h2 {
+    font-family: 'Ysabeau SC', sans-serif;
+    font-size: xx-large;
+}
+
 input[type=text] {
-    width: 90%;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid lightgoldenrodyellow;
+    border-radius: 4px;
+}
+
+
+th {
+    font-size: 1.5em;
+    background-color: lightgoldenrodyellow;
+}
+
+tr:nth-child(even) {
+    background-color: lightgray;
+}
+
+td {
+    font-size: 1.3em;
+}
+
+#add-task-button {
+    font-size: 1.1em; 
+    background-color: lightgoldenrodyellow;
+}
+
+.complete-task-button {
+    font-size: 0.8em;
 }
 
 .show-complete-button{
     background-color: greenyellow;
+    font-size: 0.8em;
 }
 
+.delete-task-button {
+    background-color: rgb(222, 143, 143);
+    font-size: 0.8em;
+}

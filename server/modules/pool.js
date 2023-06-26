@@ -7,7 +7,7 @@ const pg = require('pg');
 // pg is the dependency that interacts with pool
 const pool = new pg.Pool({
   // Specify the name of the database to connect to
-  database: 'weekend_to_do_app',
+  database: 'weekend-to-do-app',
   // Specify the host where the database is located (e.g., "localhost" if it's on your computer)
   host: 'localhost',
   // Specify the port on which Postgres is listening (default is 5432)
