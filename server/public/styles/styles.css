@@ -13,14 +13,13 @@ h2 {
 }
 
 input[type=text] {
-    width: 100%;
+    width: 90%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid lightgoldenrodyellow;
     border-radius: 4px;
 }
-
 
 th {
     font-size: 1.5em;
@@ -46,7 +45,9 @@ td {
 
 .show-complete-button{
     background-color: greenyellow;
+    padding: 3px 8px;
     font-size: 0.8em;
+    border: none;
 }
 
 .delete-task-button {
